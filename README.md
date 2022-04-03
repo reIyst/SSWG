@@ -22,7 +22,7 @@
     https://support.surfshark.com/hc/en-us/articles/360010864959-How-to-fix-website-app-login-issues-
 
     get_servers()
-    Your token grants the further step in fetching server currently using the WireGuard protocal,
+    Your token grants the further step in fetching server currently using the WireGuard protocol,
     curling in and formating this date with jq functions, echo commands. Made tempfiles are then passed
     data along the scripts chain of events. It's worth noting the combined two function from a previous script.
     get_servers() and select_servers()  This refined "get_servers()" function
