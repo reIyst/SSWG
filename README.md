@@ -46,6 +46,10 @@
     me that I combined the best of all current scripts I had been exposed to and had experience with into this.
 
     That about sums up the funtions: Verbosity is king in this script and it wouldn't have happened unless other people knew THIS FACT!
+    
+     Why is this script better in my opinion: It combines the swiftness of @Patrickm hacks running without the -g
+     ~ The Verbosity Needed to understand the who, what , when, where, why, how from: Verbosity
+     And it's debugged ~ forcing error condition to test for insight | and fixing them.
 
 
     This work is a combiation of forked scripts.
