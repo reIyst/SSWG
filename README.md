@@ -31,7 +31,7 @@
         This is fun section because of all the different varialble that could ruin your day, or give you a victory lap clap echoing the
         expire date for later use in your logger to be viewed via command logread.  If you feel jilted or have problems check
         https://support.surfshark.com/hc/en-us/articles/360010864959-How-to-fix-website-app-login-issues-
-        The 911 on this is -get a different ip- ie change vpn servers, go naked via IPS or use you cell data. Or just sleep it off and wait.
+        The 911 on this is -get a different ip- ie change vpn servers, go naked via IPS or use your cell data. Or just sleep it off and wait.
         
         gen_client_confs()
         We need these file to plug in the juice to the various places that like individual server peer file, firstly our router; then maybe a 
@@ -39,24 +39,24 @@
         
         That about sums up the funtions: Verbosity is king in this script and it wouldn't have happened unless other people knew THIS FACT!
         
-       
+        ##  Why is this script better in my opinion: It combines the swiftness of @Patrickm hacks running without the -g
+        ##  ~ The Verbosity Needed to understand the who, what , when, where, why, how from: Verbosity
+        ##  And it's debugged ~ forcing error condition to test for insight | and fixing them. 
         
         
-# This work is a combiation of forked scripts. 
-# (Yanzdan ~ Base) 
-# (Patrickm ~ Verbosity!! jq | Renewal, json output) 
-# (RuralRoots ~ Verbosity!!!, since base script landed)
-# (Bill ~ Verbosity, DEBUG, 'opkg diffutils requirement, merge, testing, README)  
-#
-#
-# opkg update 
-# opkg install diffutils curl jq
-#    
-# ./sswg.sh -g  will produce all connection files w/ pvt keys needed to configure your router,
-#  or import in WireGuard's desktop app.
+        This work is a combiation of forked scripts. 
+        (Yanzdan ~ Base) 
+        (Patrickm ~ Verbosity!! jq | Renewal, json output)
+        (RuralRoots ~ Verbosity!!!, since base script landed)
+        (Bill ~ Verbosity, DEBUG, 'opkg diffutils requirement, merge, testing, README)
+        
+        
+        opkg update opkg install diffutils curl jq  
+        
+        ./sswg.sh -g  will produce all connection files w/ pvt keys needed to configure your router,or import in WireGuard's desktop app.
 
 
-SHELL SCRIPT HAD README IN FURTHER DEPTH. 
+SHELL SCRIPT HAD REDACTED BUT INFORMATIVE README. 
 
 Script default name .json files renamed to NOT conflict with exisiting install.
 Also a static path has been added. 
