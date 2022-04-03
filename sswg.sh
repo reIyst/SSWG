@@ -30,7 +30,7 @@
 #
 # root@Dachshund:/wg# cd //
 # root@Dachshund:/# ls
-# bin      dev      etc      lib      mnt      overlay  proc     rom      root     sbin     sys      tmp      usr      var      wg       www
+# bin  dev  etc  lib  mnt  overlay  proc  rom  root  sbin  sys  tmp  usr  var  wg   www
 # root@Dachshund:/# cd /wg
 # root@Dachshund:/wg# ls
 # sswg.json  sswg.sh
@@ -98,11 +98,11 @@ do_login () {
                 echo "  HTTP status OK"
             rc=0
         elif [ $http_status -eq 429 ]; then
-            echo "  HTTP status $http_status (Blocked! Too many requests)"
+            echo "  HTTP status $http_status (Blocked! Too many requests, Change VPN Server and Retry)"
         else
-            echo "  HTTP status $http_status (Failed!)"
-        fi
-        rm $tmpfile
+            echo "  HTTP status $http_status (Failed! Check username/password in .json file)"
+        rm $tmpfile  ###  rm: can't remove '/tmp/wg-curl-res.bolbGP': No such file or directory ### Moved this rm command up to reslove. ###
+        fi    
     fi
     
     if [ "$rc" -eq 0 ]; then
@@ -170,21 +170,28 @@ reg_pubkey() {
     http_status="$(curl -o "$tmpfile" -s -w "%{http_code}" -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$data" -X POST $url)"
     message="$(jq -r '.message' $tmpfile 2>/dev/null)"
     if [ $http_status -eq 201 ]; then
+	echo "  New Token, wg.json Created!! Your old conf file will be outdated. Repopulate w/ -g" ### The meaning behind 201 status
         echo "  OK (expires: $(jq -r '.expiresAt' $tmpfile), id: $(jq -r '.id' $tmpfile))"
     elif [ $http_status -eq 401 ]; then
         echo "  Access denied: $message"
+	echo "  Token file corrupted! Deleting if available, and attempting to Login..."  ### Forged a Token to Prompt This echo 
+		 rm "$token_file"											### Added these 5 line to del/do_login and get new token
+		        if do_login; then
+                        reg_pubkey 0
+                        return
+		        fi		
         if [ "$message" = "Expired JWT Token" ]; then
-            echo "  Delete $token_file and try again!"
+            echo "  Deleting $token_file to try again!"       ### Grammar like I know any Ha!
             rm "$token_file"
             if do_login; then
                 reg_pubkey 0
                 return
             else
-                echo "  Giving up..."
+                echo "  Giving up..."   ### Have not seen lines 190~ 199 yet
             fi
         elif [ "$message" = "JWT Token not found" ]; then
             if [ $retry -eq 1 ]; then
-                 echo "  Have some coffee and try again!"
+                 echo "  Have some coffee and try again!"  
                  sleep 5
                  reg_pubkey 0
                  return
@@ -259,5 +266,9 @@ if [ "$1" == "-g" ]; then
         echo "Not generating client configurations!"
     fi
 fi
-echo "Running at $(date)"
-echo "Enjoy!"
+if [ $http_status -eq 429 ]; then  ### Added these three line to remind user to change IP; log to system log
+	logger -t BOSSUSER "RUN DATE:$(date)   Run script again on different IP and run with -g to get conf's"
+	echo "Switching VPN Servers Recommended to Login ~ Renew Check ~ run w/ -g once IP is changed"
+fi
+echo "Done at $(date)"	    ### Changed to Done
+echo "Enjoy!"				### Condidering  
