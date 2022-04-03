@@ -39,11 +39,7 @@
         
         That about sums up the funtions: Verbosity is king in this script and it wouldn't have happened unless other people knew THIS FACT!
         
-        ##  Why is this script better in my opinion: It combines the swiftness of @Patrickm hacks running without the -g
-        ##  ~ The Verbosity Needed to understand the who, what , when, where, why, how from: Verbosity
-        ##  And it's debugged ~ forcing error condition to test for insight | and fixing them. 
-        
-        
+             
         This work is a combiation of forked scripts. 
         (Yanzdan ~ Base) 
         (Patrickm ~ Verbosity!! jq | Renewal, json output)
@@ -54,7 +50,13 @@
         opkg update opkg install diffutils curl jq  
         
         ./sswg.sh -g  will produce all connection files w/ pvt keys needed to configure your router,or import in WireGuard's desktop app.
-
+        
+        
+        
+ Why is this script better in my opinion: It combines the swiftness of @Patrickm hacks running without the -g
+ ~ The Verbosity Needed to understand the who, what , when, where, why, how from: Verbosity
+ And it's debugged ~ forcing error condition to test for insight | and fixing them. 
+        
 
 SHELL SCRIPT HAD REDACTED BUT INFORMATIVE README. 
 
