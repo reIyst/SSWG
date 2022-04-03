@@ -15,7 +15,7 @@
     The login function is being passed info that was processed curling the api with your user/pass data
     This is where it is looking to see if you passed the https challenges and recieved a token currently called "JWT Token"
     The login does not invoke if a token.json file is found until the script parses over said file and verifies it's
-    authenticity. The script will verify it, delete it or complain that your bombing the server
+    authenticity. The script will verify it, delete it or complain that you're bombing the server
     and 429 you for some duration. All important code swapping, you give creds, you get "JWT Token"
     simple yet frustrating if earn yourself a 429 time-out.
     Visit SurfShark's guide logging in for more info.  The 411 on this change your ip.
