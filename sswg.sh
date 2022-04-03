@@ -30,7 +30,7 @@
 #
 # root@Dachshund:/wg# cd //
 # root@Dachshund:/# ls
-# bin  dev  etc  lib  mnt  overlay  proc  rom  root  sbin  sys  tmp  usr  var  wg   www
+# bin  dev  etc  lib  mnt  overlay  proc  rom  root  sbin  sys  tmp  usr  var  wg  www
 # root@Dachshund:/# cd /wg
 # root@Dachshund:/wg# ls
 # sswg.json  sswg.sh

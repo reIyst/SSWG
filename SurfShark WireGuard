@@ -261,3 +261,4 @@ if [ "$1" == "-g" ]; then
 fi
 echo "Running at $(date)"
 echo "Enjoy!"
+##ver1.0.0
