@@ -7,7 +7,7 @@
 #
 #
 # opkg update 
-# opkg install diffutils curl jq
+# opkg install diffutils curl jq ntpdate
 #    
 # ./sswg.sh -g  will produce all connection files w/ pvt keys needed to configure your router,
 #  or import in WireGuard's desktop app.
@@ -17,7 +17,7 @@
 # This location was arbitrarily chosen.  You may do differently, yet ALWAYS have both files present
 # in the location you run from.  AND CHANGE LINE 68 TO FOLLOW YOUR RUN DIRECTORY!!  
 # Fill in you sswg.json file w/ the three necessary input rundirectory/user/pass
-#
+# Whenever you get a NEW wg.json file, this file holds the Pvt Key necessary to configure uci/luci
 ##############################  Example of sswg.json  ##############################################
 # {
 #    "config_folder": "/wg",
@@ -170,18 +170,18 @@ reg_pubkey() {
     http_status="$(curl -o "$tmpfile" -s -w "%{http_code}" -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$data" -X POST $url)"
     message="$(jq -r '.message' $tmpfile 2>/dev/null)"
     if [ $http_status -eq 201 ]; then
-	echo "  New Token, wg.json Created!! Your old conf file will be outdated. Repopulate w/ -g" ### The meaning behind 201 status
+	echo "  New Token and wg.json Created!! Your uci/luci Pvt. Key will be outdated. Enter new Pvt.Key in uci/luci. To Repopulate matching Conf folder; Run again w/ -g" ### The meaning behind 201 status
         echo "  OK (expires: $(jq -r '.expiresAt' $tmpfile), id: $(jq -r '.id' $tmpfile))"
     elif [ $http_status -eq 401 ]; then
         echo "  Access denied: $message"
-	echo "  Token file corrupted! Deleting if available, and attempting to Login..."  ### Forged a Token to Prompt This echo 
-		 rm "$token_file"											### Added these 5 line to del/do_login and get new token
+	echo "  Token file corrupted! Deleting if available, and attempting to Login..."	### Forged a Token to Prompt This echo 
+		 rm "$token_file"	### Added these 5 line to del/do_login and get new token
 		        if do_login; then
                         reg_pubkey 0
                         return
 		        fi		
         if [ "$message" = "Expired JWT Token" ]; then
-            echo "  Deleting $token_file to try again!"       ### Grammar like I know any Ha!
+            echo "  Deleting $token_file to try again!"	### Grammar like I know any Ha!
             rm "$token_file"
             if do_login; then
                 reg_pubkey 0
@@ -249,6 +249,8 @@ gen_client_confs() {
     done
 }
 
+echo "Just a Sec 'ntpdate' sycning clock"
+ntpdate -s pool.ntp.org  ## testing 04052022	## Remark this line if you have not installed ntpdate
 echo "Running at $(date)"
 read_config
 gen_keys
@@ -270,5 +272,5 @@ if [ $http_status -eq 429 ]; then  ### Added these three line to remind user to 
 	logger -t BOSSUSER "RUN DATE:$(date)   Run script again on different IP and run with -g to get conf's"
 	echo "Switching VPN Servers Recommended to Login ~ Renew Check ~ run w/ -g once IP is changed"
 fi
-echo "Done at $(date)"	    ### Changed to Done
-echo "Enjoy!"				### Condidering  
+echo "Done at $(date)"	### Changed to Done
+echo "Enjoy!"	### Condidering  
