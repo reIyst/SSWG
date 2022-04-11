@@ -18,8 +18,8 @@
 ###    read_config(), do_login(), get_servers(), gen_keys(), reg_pubkey(), gen_client_confs()
 
 ## Fuctions explained:
-read_config()
-looks for the paramaters set forth in two files: sswg.sh and sswg.json
+##  read_config()
+Looks for the paramaters set forth in two files: sswg.sh and sswg.json
 On line 68 of the sswg.sh >config_file="/wg.sswg.json" asks for user credential and a pre set path to populate
 further into the processing. Being that line 68 is in itself a pre set path may add
 confusion, yet if one were to set line 68 to a different loction
