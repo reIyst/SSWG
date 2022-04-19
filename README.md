@@ -89,8 +89,8 @@ This work is a culmination of scripts.
 Thursday Key Reinstate Sunday conf files download and Key Reinstate
 
 ```
-15 00 * * 4 /wg/sswg.sh >>/wg/wg.log 2 >&1 # standard registration and amend '>>' to log midnight+15min Thurs
-15 00 * * 0 /wg/sswg.sh -g >>/wg/wg.log 2 >&1 # servers conf files dwl and amend '>>' to log midnight+15min Sunday
+15 00 * * 4 /wg/sswg.sh >>/wg/wg.log 2 >&1 # standard registration and Redirect standard output to file '>' to log midnight+15min Thurs
+15 00 * * 0 /wg/sswg.sh -g >>/wg/wg.log 2 >&1 # servers conf files dwl and Append standard output to file '>>' to log midnight+15min Sunday
 ```
 
 
