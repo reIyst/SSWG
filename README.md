@@ -1,4 +1,4 @@
-# SurfShark WireGurard OpenWrt ~ SSWG
+# [OpenWrt ](https://forum.openwrt.org/t/create-surfshark-wireguard-connection-on-openwrt-easily/111866/150) SurfShark WireGurard ~ [SSWG](https://forum.openwrt.org/t/create-surfshark-wireguard-connection-on-openwrt-easily/111866/127)
 
 ## A shell script and companion file to curl the 'api.surfshark.com'.
 #### Prerequisite: One must have an up-to-date SurfShark VPN account and Luci/uci access to router. Beyond the scope of this README is also having WireGuard installed.  A good place to start is on the [OpenWrt Wiki](https://openwrt.org/docs/guide-user/services/vpn/wireguard/client#preparation) for a baseline install, then unto the [Web Interface](https://openwrt.org/docs/guide-user/services/vpn/wireguard/extras#web_interface).
@@ -74,14 +74,14 @@ I don't know of any consumer grade routers that have a RTC (real time clock) ~ b
 
 ##  Summation
 Verbosity is king in this script and it wouldn't have happened unless other people knew THIS FACT!
-This script achievements: it combines the swiftness of @patrickm hacks running without the `-g`, the Verbosity needed to understand the who, what , when, where, why, how. It's being actively debugged ~ forcing error condition to test for insight | and fixing them.
+This script achievements: it combines the base files of @yanzdan api code with the  swiftness of @trickapm aka patrickm hacks running without the `-g`, the Verbosity of @ruralroots inclusions needed to understand the who, what , when, where, why, how.  It's being actively debugged ~ forcing error condition to test for insight | and fixing them.
 
 
 ## Sources 
 This work is a culmination of scripts.
-* [Yanzdan](https://github.com/yazdan/openwrt-surfshark-wireguard)
-* [Patrickm](https://gist.github.com/trickapm)
-* [RuralRoots](https://github.com/ruralroots/openwrt-surfshark-wireguard)
+* [yanzdan](https://github.com/yazdan/openwrt-surfshark-wireguard)
+* [trickapm](https://gist.github.com/trickapm)
+* [ruralroots](https://github.com/ruralroots/openwrt-surfshark-wireguard)
 
 
 ## Etcetera
