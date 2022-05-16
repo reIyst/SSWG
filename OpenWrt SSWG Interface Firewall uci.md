@@ -34,7 +34,7 @@ uci set network.sswg.listen_port='51820'
 uci set network.sswg.addresses='10.14.0.2/8'
 uci commit network
 ~~ if you have an error delete the '$(eval echo $(jq '.prv' ./wg/wg.json))' ~~
-~~ populate your private key in WinSCP, Luci, or uci. it the above line caused errors ~~
+~~ populate your private key in WinSCP, Luci, or uci, if the above line caused errors ~~
 
 uci set network.peerchiu='wireguard_sswg'
 uci set network.peerchiu.description=peerchiu
