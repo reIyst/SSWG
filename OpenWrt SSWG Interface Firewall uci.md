@@ -29,9 +29,9 @@ uci set network.wan.metric='10'
 
 uci set network.sswg=interface
 uci set network.sswg.proto='wireguard'
-uci set network.sswg.private_key=$(eval echo $(jq '.prv' ./wg/wg.json))	
 uci set network.sswg.listen_port='51820'
 uci set network.sswg.addresses='10.14.0.2/8'
+uci set network.sswg.private_key=$(eval echo $(jq '.prv' ./wg/wg.json))	
 uci commit network
 ~~ if you have an error delete the '$(eval echo $(jq '.prv' ./wg/wg.json))' ~~
 ~~ populate your private key in WinSCP, Luci, or uci, if the above line caused errors ~~
