@@ -22,7 +22,7 @@ ____
 opkg install luci-app-wireguard  luci-proto-wireguard  wireguard-tools  install kmod-wireguard``
 
 ### Installing w/out Peer(1) and with Multi Peer for uci cli Swapping.
-**Follow the Templet** Use all or at least two, or configure within the file your own. Double check the `wan.metric='10'` with `ip route show default` to ensure metric 10 is not already in use; modify accordingly. ***All public key are dummy. Until changed with legitimate pub key from your downloaded client conf files; you will be without Internet access.*** 
+**Follow the Templet** Use all or at least two, or configure your own within the file templet. Double check the `wan.metric='10'` with `ip route show default` to ensure metric 10 is not already in use; modify accordingly. ***All public key are dummy. Until changed with legitimate pub key from your downloaded client conf files; you will be without Internet access.*** 
 
 ```
 uci set network.wan.metric='10'
