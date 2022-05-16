@@ -123,7 +123,7 @@ uci commit network
 
 ***
 ____
-### Copyright and Attribution of developed software, tool, logo, names are the right of the following entities repectivly.  
+### Copyright and Attribution of developed software, tool, logo, names are the right of the following entities respectively.  
 ![Image](https://openwrt.org/_media/logo.png "OpenWrt Logo") CC Attribution-Share Alike 4.0 International
 
 
