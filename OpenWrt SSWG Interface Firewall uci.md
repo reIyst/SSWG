@@ -1,4 +1,4 @@
-![image](https://avatars.githubusercontent.com/u/102527325?s=48&v=4) _This README is dedicated to making a cli uci install of the Wireguard services and sswg script to enable one to swap endpoint easily and quickly.  The front end work is lenghty, mostly reading; yet the outcome is well worth the time, especially since most of the work of configuration is `uci set`. Enjoy!_
+![image](https://avatars.githubusercontent.com/u/102527325?s=48&v=4) _This README is dedicated to making a cli uci install of the Wireguard services and sswg script to enable one to swap endpoint easily and quickly.  The front end work is lengthy, mostly reading; yet the outcome is well worth the time, especially since most of the work of configuration is `uci set`. Enjoy!_
 # OpenWrt SurfShark WireGurard ~ SSWG 
 ### Have the requirements to run the script
 ___
@@ -22,7 +22,7 @@ ____
 opkg install luci-app-wireguard  luci-proto-wireguard  wireguard-tools  install kmod-wireguard``
 
 ### Installing w/out Peer(1) and with Multi Peer for uci cli Swapping.
-**Follow the Templet** Use all or at least two, or configure within the file your own. Double check the `wan.metric='10'` with `ip route show default` to ensure metric 10 is not already in use; modifiy accordindly. ***All public key are dummy. Until changed with legitamate pub key from you downloaded client conf files; you will be without Internet access.*** 
+**Follow the Templet** Use all or at least two, or configure within the file your own. Double check the `wan.metric='10'` with `ip route show default` to ensure metric 10 is not already in use; modify accordingly. ***All public key are dummy. Until changed with legitimate pub key from you downloaded client conf files; you will be without Internet access.*** 
 
 ```
 uci set network.wan.metric='10'
@@ -104,7 +104,7 @@ uci commit firewall
 ____
 # Swapping 
 ## Uci CLI Peer Swapping
-### The peer swapping is achieved by placing the desired peer config in the last/bottom order of the `/etc/config/network` file. The high aribitray number '99' should suffice to place desired network peer at bottom. My personal config has only 15. The resulting command will also be represented in the Wireguard Status, Interface Peer Pages of Luci.  Simple command, long description. 
+### The peer swapping is achieved by placing the desired peer config in the last/bottom order of the `/etc/config/network` file. The high arbitrary number '99' should suffice to place desired network peer at bottom. My personal config has only 15. The resulting command will also be represented in the Wireguard Status, Interface Peer Pages of Luci.  Simple command, long description. 
 From the above install, Toronto Canada is the last peer installed and will be the default route the sswg vpn tunnels through.  By running the below command the Warsaw Poland endpoint takes the bottom position and becomes sswg vpn tunnel. **This is achieved from the `network.peerwarp` NETWORK not the description=peerwarp!** A look at your `/etc/config/network` file will enlighten your understanding later.
 
 ```
