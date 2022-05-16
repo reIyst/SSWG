@@ -1,7 +1,7 @@
 # [OpenWrt ](https://forum.openwrt.org/t/create-surfshark-wireguard-connection-on-openwrt-easily/111866/150) SurfShark WireGurard ~ [SSWG](https://forum.openwrt.org/t/create-surfshark-wireguard-connection-on-openwrt-easily/111866/127)
 
 ## A shell script and companion file to curl the 'api.surfshark.com'.
-#### Prerequisite: One must have an up-to-date SurfShark VPN account and Luci/uci access to router. Beyond the scope of this README is also having WireGuard installed.  A good place to start is on the [OpenWrt Wiki](https://openwrt.org/docs/guide-user/services/vpn/wireguard/client#preparation) for a baseline install, then unto the [Web Interface](https://openwrt.org/docs/guide-user/services/vpn/wireguard/extras#web_interface). Or check the updated [MD file for quick endpoint swapping](https://github.com/reIyst/SSWG/blob/main/OpenWrt%20SSWG%20Interface%20Firewall%20uci.md).
+#### Prerequisite: One must have an up-to-date SurfShark VPN account and Luci/uci access to router. Beyond the scope of this README is also having WireGuard installed.  A good place to start is on the [OpenWrt Wiki](https://openwrt.org/docs/guide-user/services/vpn/wireguard/client#preparation) for a baseline install, then unto the [Web Interface](https://openwrt.org/docs/guide-user/services/vpn/wireguard/extras#web_interface). Or check the updated [MD file for quick endpoint swapping](https://github.com/reIyst/SSWG/blob/main/Setup%20Guide%20Endpoint%20Swap.md).
 
 ## Installation Requirements
 `opkg update ; opkg install diffutils curl jq ntpdate`
