@@ -8,7 +8,7 @@ ___
 :eight_spoked_asterisk:_You can install and run the script to obtain the keys within the `wg.json` file prior to doing Multi Peer section._
 
 
-From the [reIyst SSWG](https://github.com/reIyst/SSWG/releases/tag/OpenWrt_Wireguard_Surfshark) download the ['sswg.sh'](https://github.com/reIyst/SSWG/releases/download/OpenWrt_Wireguard_Surfshark/sswg.sh) and ['sswg.json'](https://github.com/reIyst/SSWG/releases/download/OpenWrt_Wireguard_Surfshark/sswg.json) [^1] files. If you have WinSCP your day is made easy. SSH into your router via WinSCP/Putty and create the folder structure. Copy the two files into the 'wg' directory and make the sswg.sh file executable. `./sswg.sh -g`  Is the first run application and will produce all connection files w/ pvt keys needed to configure your router, and/or import in WireGuard's© desktop app.
+From the [reIyst SSWG](https://github.com/reIyst/SSWG/releases/tag/OpenWrt_Wireguard_Surfshark) download the ['sswg.sh'](https://github.com/reIyst/SSWG/releases/download/OpenWrt_Wireguard_Surfshark/sswg.sh) and ['sswg.json'](https://github.com/reIyst/SSWG/releases/download/OpenWrt_Wireguard_Surfshark/sswg.json) files.[^1] If you have WinSCP your day is made easy. SSH into your router via WinSCP/Putty and create the folder structure. Copy the two files into the 'wg' directory and make the sswg.sh file executable. `./sswg.sh -g`  Is the first run application and will produce all connection files w/ pvt keys needed to configure your router, and/or import in WireGuard's© desktop app.
   
 ``mkdir -p /wg/``
 
