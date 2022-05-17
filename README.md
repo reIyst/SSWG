@@ -6,7 +6,7 @@
 ## Installation Requirements
 `opkg update ; opkg install diffutils curl jq ntpdate`
 ## Usage found within the shell script remarks.
-![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) Make the shell script executable 
+:eight_spoked_asterisk: Make the shell script executable 
  ``
  chmod +x sswg.sh  
  ``
