@@ -122,7 +122,7 @@ get_servers() {
         echo "  HTTP status OK ($(jq '. | length' "$tmpfile") servers downloaded)"
         echo -n "  Selecting suitable servers..."
         tmpfile2=$(mktemp /tmp/surfshark-wg-servers.XXXXXX)
-        jq '.[] | select(.tags as $t | ["p2p", "physical"] | index($t))' "$tmpfile" | jq -s '.' > "$tmpfile2"
+        jq '.[] | select(.tags as $t | ["p2p", "virtual", physical"] | index($t))' "$tmpfile" | jq -s '.' > "$tmpfile2"
         echo " ($(jq '. | length' "$tmpfile2") servers selected)"
         if [ -f "$servers_file" ]; then
             echo "  Servers list \"$servers_file\" already exists"
@@ -210,7 +210,7 @@ reg_pubkey() {
             diff=$(($ed - $now))
             if [ $diff -eq 604800 -o $((604800 - $diff)) -lt 10 ]; then
                 echo "  Renewed! (expires: $expire_date)"
-            	echo "  Hello World Wide WireGuard©"                                           # Your Custom Shout Out 
+            	echo "  Hello World Wide WireGuardÂ©"                                           # Your Custom Shout Out 
            	echo "  Thanks Jason A. Donenfeld"                                             # wg was written by One Json we can find
             	logger -t BOSSUSER "RUN DATE:$(date)   KEYS EXPIRE ON: ${expire_date}"         # Log Status Information
 
