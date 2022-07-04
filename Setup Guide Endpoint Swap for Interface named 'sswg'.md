@@ -16,7 +16,7 @@ From the [reIyst SSWG](https://github.com/reIyst/SSWG/releases/tag/OpenWrt_Wireg
 
 ``./sswg.sh -g``
 ____
-# Multi (Peer)
+# Multi (Peer) for interface named 'sswg'
 ### Have the requirements to use Luci/uci WireGuard©
 ``opkg update``
 ``opkg install luci-app-wireguard;  luci-proto-wireguard;  wireguard-tools;  install kmod-wireguard``
