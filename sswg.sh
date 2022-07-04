@@ -122,7 +122,7 @@ get_servers() {
         echo "  HTTP status OK ($(jq '. | length' "$tmpfile") servers downloaded)"
         echo -n "  Selecting suitable servers..."
         tmpfile2=$(mktemp /tmp/surfshark-wg-servers.XXXXXX)
-        jq '.[] | select(.tags as $t | ["p2p", "virtual", physical"] | index($t))' "$tmpfile" | jq -s '.' > "$tmpfile2"
+        jq '.[] | select(.tags as $t | ["p2p", "virtual", "physical"] | index($t))' "$tmpfile" | jq -s '.' > "$tmpfile2"
         echo " ($(jq '. | length' "$tmpfile2") servers selected)"
         if [ -f "$servers_file" ]; then
             echo "  Servers list \"$servers_file\" already exists"
