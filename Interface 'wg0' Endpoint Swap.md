@@ -25,6 +25,7 @@ opkg install luci-app-wireguard  luci-proto-wireguard  wireguard-tools  install 
 **Follow the Templet** Use all or at least two, or configure within the file your own. Double check the `wan.metric='10'` with `ip route show default` to ensure metric 10 is not already in use; modifiy accordindly. ***All public key are dummy. Until changed with legitamate pub key from you downloaded client conf files; you will be without :surfer: Internet access.*** 
 
 ```
+cd /
 uci set network.wan.metric='10'
 
 uci set network.wg0=interface
@@ -33,14 +34,13 @@ uci set network.wg0.listen_port='51820'
 uci set network.wg0.addresses='10.14.0.2/8'
 uci set network.wg0.private_key=$(eval echo $(jq '.prv' ./wg/wg.json))	
 uci commit network
-~~ if you have an error delete the '$(eval echo $(jq '.prv' ./wg/wg.json))' ~~
-~~ populate your private key in WinSCP, Luci, or uci. it the above line caused errors ~~
+
 
 uci set network.peerchiu='wireguard_wg0'
 uci set network.peerchiu.description=peerchiu
 uci set network.peerchiu.public_key=DpMfulanF/MVHmt3AX4dqLqcyE0dpPqYBjDlWMaUI00=
-uci set network.peerchiu.allowed_ips='0.0.0.0/0'
-uci set network.peerchiu.allowed_ips='::/0'
+uci add_list network.peerchiu.allowed_ips='0.0.0.0/0'
+uci add_list network.peerchiu.allowed_ips='::/0'
 uci set network.peerchiu.route_allowed_ips='1'
 uci set network.peerchiu.endpoint_host=us-chi.prod.surfshark.com
 uci set network.peerchiu.endpoint_port='51820'
@@ -50,8 +50,8 @@ uci commit network
 uci set network.peerdalu='wireguard_wg0'
 uci set network.peerdalu.description=peerdalu
 uci set network.peerdalu.public_key=0iwHQpV+rsOg38ogv4g4XMLJa51YqWY/yKWR9UEUMDk=
-uci set network.peerdalu.allowed_ips='0.0.0.0/0'
-uci set network.peerdalu.allowed_ips='::/0'
+uci add_list network.peerdalu.allowed_ips='0.0.0.0/0'
+uci add_list network.peerdalu.allowed_ips='::/0'
 uci set network.peerdalu.route_allowed_ips='1'
 uci set network.peerdalu.endpoint_host=us-dal.prod.surfshark.com
 uci set network.peerdalu.endpoint_port='51820'
@@ -61,8 +61,8 @@ uci commit network
 uci set network.peernycu='wireguard_wg0'
 uci set network.peernycu.description=peernycu
 uci set network.peernycu.public_key=rhuoCmHdyYrh0zW3J0YXZK4aN3It7DD26TXlACuWnwU=
-uci set network.peernycu.allowed_ips='0.0.0.0/0'
-uci set network.peernycu.allowed_ips='::/0'
+uci add_list network.peernycu.allowed_ips='0.0.0.0/0'
+uci add_list network.peernycu.allowed_ips='::/0'
 uci set network.peernycu.route_allowed_ips='1'
 uci set network.peernycu.endpoint_host=us-nyc.prod.surfshark.com
 uci set network.peernycu.endpoint_port='51820'
@@ -72,8 +72,8 @@ uci commit network
 uci set network.peerwarp='wireguard_wg0'
 uci set network.peerwarp.description=peerwarp
 uci set network.peerwarp.public_key=vBa3HK7QXietG64rHRLm085VMS2cAX2paeAaphB/SEU=
-uci set network.peerwarp.allowed_ips='0.0.0.0/0'
-uci set network.peerwarp.allowed_ips='::/0'
+uci add_list network.peerwarp.allowed_ips='0.0.0.0/0'
+uci add_list network.peerwarp.allowed_ips='::/0'
 uci set network.peerwarp.route_allowed_ips='1'
 uci set network.peerwarp.endpoint_host=pl-waw.prod.surfshark.com
 uci set network.peerwarp.endpoint_port='51820'
@@ -83,8 +83,8 @@ uci commit network
 uci set network.peertorc='wireguard_wg0'
 uci set network.peertorc.description=peertorc
 uci set network.peertorc.public_key=W9bzkcL3fiV64vDpB4pbrz8QafNn3y5P9Yc/kQvy4TA=
-uci set network.peertorc.allowed_ips='0.0.0.0/0'
-uci set network.peertorc.allowed_ips='::/0'
+uci add_list network.peertorc.allowed_ips='0.0.0.0/0'
+uci add_list network.peertorc.allowed_ips='::/0'
 uci set network.peertorc.route_allowed_ips='1'
 uci set network.peertorc.endpoint_host=ca-tor.prod.surfshark.com
 uci set network.peertorc.endpoint_port='51820'
@@ -122,7 +122,7 @@ uci reorder network.peerchiu=99;uci commit network;/etc/init.d/network restart
 ```
 ###### Dallas :surfer:
 ```
-uci reorder network.peercltu=99;uci commit network;/etc/init.d/network restart
+uci reorder network.peerdalu=99;uci commit network;/etc/init.d/network restart
 ```
 ###### New York :surfer:
 ```
