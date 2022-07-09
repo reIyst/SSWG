@@ -19,7 +19,8 @@ ____
 # Multi (Peer) for interface named 'sswg'
 ### Have the requirements to use Luci/uci WireGuard©
 ``opkg update``
-``opkg install luci-app-wireguard;  luci-proto-wireguard;  wireguard-tools;  install kmod-wireguard``
+``opkg install luci-app-wireguard;  luci-proto-wireguard;  wireguard-tools; kmod-wireguard``
+* Reboot your system so the above packages can manifest in Luci.
 
 ### Installing w/out Peer(1) and with Multi Peer for uci cli Swapping.
 **Follow the Templet** Use all or at least two, or configure your own within the file templet. Double check the `wan.metric='10'` to ensure metric 10 is not already in use ``ip route show default`` ; modify accordingly.  ***All public key are dummy. Until changed with legitimate pub key from your downloaded client conf files; you will be without :surfer: Internet access.[^2]***
