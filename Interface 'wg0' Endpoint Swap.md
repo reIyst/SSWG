@@ -19,7 +19,8 @@ ____
 # Multi (Peer) For Interface named 'wg0'
 ### Have the requirements to use Luci/uci WireGuard©
 ``opkg update
-opkg install luci-app-wireguard  luci-proto-wireguard  wireguard-tools  install kmod-wireguard``
+opkg install luci-app-wireguard;  luci-proto-wireguard;  wireguard-tools;  kmod-wireguard``
+* Reboot your system so the above packages can manifest in Luci.
 
 ### Installing w/out Peer(1) and with Multi Peer for uci cli Swapping.
 **Follow the Templet** Use all or at least two, or configure within the file your own. Double check the `wan.metric='10'` with `ip route show default` to ensure metric 10 is not already in use; modifiy accordindly. ***All public key are dummy. Until changed with legitamate pub key from you downloaded client conf files; you will be without :surfer: Internet access.*** 
