@@ -40,7 +40,7 @@ uci set network.peerchiu='wireguard_sswg'
 uci set network.peerchiu.description=peerchiu
 uci set network.peerchiu.public_key=placeholderVHmt3AX4dqLqcyE0dpPqYBjDlWMaUTAG=
 uci set network.peerchiu.allowed_ips='0.0.0.0/0'
-uci set network.peertorc.allowed_ips='::/0'
+uci set network.peerchiu.allowed_ips='::/0'
 uci set network.peerchiu.route_allowed_ips='1'
 uci set network.peerchiu.endpoint_host=us-chi.prod.surfshark.com
 uci set network.peerchiu.endpoint_port='51820'
@@ -51,7 +51,7 @@ uci set network.peerdalu='wireguard_sswg'
 uci set network.peerdalu.description=peerdalu
 uci set network.peerdalu.public_key=placeholderg38ogv4g4XMLJa51YqWY/yKWR9UEUTAG=
 uci set network.peerdalu.allowed_ips='0.0.0.0/0'
-uci set network.peertorc.allowed_ips='::/0'
+uci set network.peerdalu.allowed_ips='::/0'
 uci set network.peerdalu.route_allowed_ips='1'
 uci set network.peerdalu.endpoint_host=us-dal.prod.surfshark.com
 uci set network.peerdalu.endpoint_port='51820'
@@ -62,7 +62,7 @@ uci set network.peernycu='wireguard_sswg'
 uci set network.peernycu.description=peernycu
 uci set network.peernycu.public_key=placeholder0zW3J0YXZK4aN3It7DD26TXlACuWTAG=
 uci set network.peernycu.allowed_ips='0.0.0.0/0'
-uci set network.peertorc.allowed_ips='::/0'
+uci set network.peernycu.allowed_ips='::/0'
 uci set network.peernycu.route_allowed_ips='1'
 uci set network.peernycu.endpoint_host=us-nyc.prod.surfshark.com
 uci set network.peernycu.endpoint_port='51820'
@@ -73,7 +73,7 @@ uci set network.peerwarp='wireguard_sswg'
 uci set network.peerwarp.description=peerwarp
 uci set network.peerwarp.public_key=placeholdertG64rHRLm085VMS2cAX2paeAaphB/TAG=
 uci set network.peerwarp.allowed_ips='0.0.0.0/0'
-uci set network.peertorc.allowed_ips='::/0'
+uci set network.peerwarp.allowed_ips='::/0'
 uci set network.peerwarp.route_allowed_ips='1'
 uci set network.peerwarp.endpoint_host=pl-waw.prod.surfshark.com
 uci set network.peerwarp.endpoint_port='51820'
