@@ -16,13 +16,25 @@ read_config() {
 
  unset conf_json
 }
-
+gen_keys() {
+    if [ -f "$wg_keys" ]; then
+        echo "WireGuard keys \"$wg_keys\" already exist"
+        wg_pub=$(cat "$wg_keys" | jq -r '.pub')
+        wg_prv=$(cat "$wg_keys" | jq -r '.prv')
+    else
+        echo "Generating WireGuard keys..."
+        wg_prv=$(wg genkey)
+        wg_pub=$(echo "$wg_prv" | wg pubkey)
+        echo "{\"pub\":\"$wg_pub\", \"prv\":\"$wg_prv\"}" > "$wg_keys"
+    fi
+    echo "  Using public key: $wg_pub"
+}
 do_login () {
     rc=1
     if [ -f "$token_file" ]; then
-#        echo "Token file \"$token_file\" exists, skipping login"  ## With the new "000" Failure in reg_pubkey and do_login...
-#        rc=0                                                      ## we'er calling out the "000" failure in curl...
-#    else                                                          ## continuing with generation of new/updated "Token.json"!  
+        echo "Token file \"$token_file\" exists, skipping login"  ## With the new "000" Failure in reg_pubkey and do_login...
+        rc=0                                                      ## we'er calling out the "000" failure in curl...
+    else                                                          ## continuing with generation of new/updated "Token.json"!  
         echo "Logging in..."
         tmpfile=$(mktemp /tmp/wg-curl-res.XXXXXX)
         url="$baseurl/v1/auth/login"
@@ -47,7 +59,7 @@ do_login () {
             fi                                    
         else
             echo "  HTTP status $http_status (Failed! Check username/password in .json file)"
-        rm "$tmpfile"  ###  rm: can't remove '/tmp/wg-curl-res.bolbGP': No such file or directory ### Moved this rm command up to reslove. ###
+        rm "$tmpfile"
         fi    
     fi
     
@@ -56,6 +68,74 @@ do_login () {
         renewToken="$(jq -r '.renewToken' "$token_file")"
     fi
     return $rc
+}
+reg_pubkey() {
+    echo "Registering public key..."
+    url="$baseurl/v1/account/users/public-keys"
+    data="{\"pubKey\": \"$wg_pub\"}"
+    retry=$2
+
+    tmpfile="$(mktemp /tmp/wg-curl-res.XXXXXX)"
+    http_status="$(curl -o "$tmpfile" -s -w "%{http_code}" -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$data" -X POST $url)"
+    message="$(jq -r '.message' "$tmpfile" 2>/dev/null)"
+    if [ "$http_status" -eq 201 ]; then
+	echo "  New Token Created!! "  ### The meaning behind 201 status
+        echo "  OK (expires: $(jq -r '.expiresAt' "$tmpfile"), id: $(jq -r '.id' "$tmpfile"))"
+    elif [ "$http_status" -eq 401 ] || [ "$http_status" -eq 000 ]; then  ### 401 Testing the generic Curl error for reg pubkey as redundancy.
+	echo "  Token file Hot-Fix!..."	### Forged a Token to Prompt This echo 
+		 rm "$token_file"
+		        if do_login; then
+                        reg_pubkey 0
+                        return
+		        fi
+				
+        if [ "$message" = "Expired JWT Token" ]; then
+            echo "  Deleting $token_file to try again!"	
+            rm "$token_file"
+            if do_login; then
+                reg_pubkey 0
+                return
+            else
+                echo "  Giving up..."   ### Have not seen lines 190~ 199 yet
+            fi
+        elif [ "$message" = "JWT Token not found" ]; then
+            if [ "$retry" -eq 1 ]; then
+                 echo "  Have some coffee and try again!"  
+                 sleep 5
+                 reg_pubkey 0
+                 return
+            else
+                echo "  Giving up..."
+            fi
+        
+         fi
+    elif [ "$http_status" -eq 409 ]; then
+        echo "  Already registered"
+        url="$baseurl/v1/account/users/public-keys/validate"
+        http_status="$(curl -o "$tmpfile" -s -w "%{http_code}" -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$data" -X POST $url)"
+        if [ "$http_status" -eq 200 ]; then
+            expire_date="$(jq -r '.expiresAt' "$tmpfile")"
+            ed="$(date -u -d "$expire_date" -D "%Y-%m-%dT%T" +"%s")"
+            now="$(date -u +"%s")"
+            diff=$((ed - now))
+            if [ $diff -eq 604800 ] || [ $((604800 - diff)) -lt 10 ]; then
+                echo "  Renewed! (expires: $expire_date)"
+            	echo "  Hello World Wide WireGuardÂ©"                                           # Your Custom Shout Out 
+           	echo "  Thanks Jason A. Donenfeld"                                             # wg was written by One Json we can find
+            	logger -t BOSSUSER "RUN DATE:$(date)   KEYS EXPIRE ON: ${expire_date}"         # Log Status Information
+
+            elif [ $diff -gt 0 ]; then
+                echo "  Expires on $expire_date)"
+            else
+                echo "  Warning: key is expired! ($expire_date)"
+            fi
+        else
+            echo " HTTP status $http_status, failed to check key: $(cat "$tmpfile")"
+        fi
+    else
+        echo "  Failed: HTTP $http_status, $(cat "$tmpfile")"
+fi
+rm "$tmpfile"
 }
 
 get_servers() {
@@ -91,90 +171,6 @@ get_servers() {
     rm "$tmpfile"
     return $rc
 }
-
-gen_keys() {
-    if [ -f "$wg_keys" ]; then
-        echo "WireGuard keys \"$wg_keys\" already exist"
-        wg_pub=$(cat "$wg_keys" | jq -r '.pub')
-        wg_prv=$(cat "$wg_keys" | jq -r '.prv')
-    else
-        echo "Generating WireGuard keys..."
-        wg_prv=$(wg genkey)
-        wg_pub=$(echo "$wg_prv" | wg pubkey)
-        echo "{\"pub\":\"$wg_pub\", \"prv\":\"$wg_prv\"}" > "$wg_keys"
-    fi
-    echo "  Using public key: $wg_pub"
-}
-
-reg_pubkey() {
-    echo "Registering public key..."
-    url="$baseurl/v1/account/users/public-keys"
-    data="{\"pubKey\": \"$wg_pub\"}"
-    retry=$2
-
-    tmpfile="$(mktemp /tmp/wg-curl-res.XXXXXX)"
-    http_status="$(curl -o "$tmpfile" -s -w "%{http_code}" -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$data" -X POST $url)"
-    message="$(jq -r '.message' "$tmpfile" 2>/dev/null)"
-    if [ "$http_status" -eq 201 ]; then
-	echo "  New Token and wg.json Created!! Your uci/luci Pvt. Key will be outdated. Enter new Pvt.Key in uci/luci. To Repopulate matching Conf folder; Run again w/ -g" ### The meaning behind 201 status
-        echo "  OK (expires: $(jq -r '.expiresAt' "$tmpfile"), id: $(jq -r '.id' "$tmpfile"))"
-    elif [ "$http_status" -eq 401 ]; then  ### Changed this to 000 from a http 401 Testing the generic Curl error for reg pubkey as redundancy.
-        echo "  Access denied: $message"
-	echo "  Token file corrupted! Deleting if available, and attempting to Login..."	### Forged a Token to Prompt This echo 
-		 rm "$token_file"	### Added these 5 line to del/do_login and get new token
-		        if do_login; then
-                        reg_pubkey 0
-                        return
-		        fi		
-        if [ "$message" = "Expired JWT Token" ]; then
-            echo "  Deleting $token_file to try again!"	### Grammar like I know any Ha!
-            rm "$token_file"
-            if do_login; then
-                reg_pubkey 0
-                return
-            else
-                echo "  Giving up..."   ### Have not seen lines 190~ 199 yet
-            fi
-        elif [ "$message" = "JWT Token not found" ]; then
-            if [ "$retry" -eq 1 ]; then
-                 echo "  Have some coffee and try again!"  
-                 sleep 5
-                 reg_pubkey 0
-                 return
-            else
-                echo "  Giving up..."
-            fi
-        
-         fi
-    elif [ "$http_status" -eq 409 ]; then
-        echo "  Already registered"
-        url="$baseurl/v1/account/users/public-keys/validate"
-        http_status="$(curl -o "$tmpfile" -s -w "%{http_code}" -H "Authorization: Bearer $token" -H "Content-Type: application/json" -d "$data" -X POST $url)"
-        if [ "$http_status" -eq 200 ]; then
-            expire_date="$(jq -r '.expiresAt' "$tmpfile")"
-            ed="$(date -u -d "$expire_date" -D "%Y-%m-%dT%T" +"%s")"
-            now="$(date -u +"%s")"
-            diff=$((ed - now))
-            if [ $diff -eq 604800 ] || [ $((604800 - diff)) -lt 10 ]; then
-                echo "  Renewed! (expires: $expire_date)"
-            	echo "  Hello World Wide WireGuard©"                                           # Your Custom Shout Out 
-           	echo "  Thanks Jason A. Donenfeld"                                             # wg was written by One Json we can find
-            	logger -t BOSSUSER "RUN DATE:$(date)   KEYS EXPIRE ON: ${expire_date}"         # Log Status Information
-
-            elif [ $diff -gt 0 ]; then
-                echo "  Expires on $expire_date)"
-            else
-                echo "  Warning: key is expired! ($expire_date)"
-            fi
-        else
-            echo " HTTP status $http_status, failed to check key: $(cat "$tmpfile")"
-        fi
-    else
-        echo "  Failed: HTTP $http_status, $(cat "$tmpfile")"
-    fi
-    rm "$tmpfile"
-}
-
 gen_client_confs() {
     postf=".surfshark.com"
     mkdir -p "$output_conf_folder"
