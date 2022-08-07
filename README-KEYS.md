@@ -1,6 +1,9 @@
 ## Welcome to Keys.sh 
 * ###### :warning: Tested on OpenWrt 22.03.0-rc6 : MikroTik RouterBOARD 951Ui-2nD (hAP) : YMMV :warning:
-* :on: Use custom DNS servers on `if wg0` has DNSSEC and DNSSEC check unsigned :heavy_check_mark: : `dnsmasq-full - 2.86-13` package :on:
+* Use custom DNS servers on `if wg0` has DNSSEC and DNSSEC check unsigned :heavy_check_mark: : `dnsmasq-full - 2.86-13` package.
+* If deciding to run with DNSSEC you'll need to unistall `dnsmasq` to be uninstalled and `dnsmasq-full` installed. [Link](https://github.com/openwrt/packages/tree/master/net/stubby/files#:~:text=Both%20options%20are%20detailed%20below%2C%20and%20both%20require%20that%20the%20dnsmasq%20package%20on%20the%20OpenWRT%20device%20is%20replaced%20with%20the%20dnsmasq%2Dfull%20package.%20That%20can%20be%20achieved%20by%20running%20the%20following%20command%3A)
+* `opkg update`
+* `opkg install dnsmasq-full --download-only && opkg remove dnsmasq && opkg install dnsmasq-full --cache . && rm *.ipk`
 
 ###### New Setup: Interface "wg0" in the `WAN` zone firewall and Toronto peer activated!
 ###### Use LuCi Interface Settings to drag-n-drop new conf.
@@ -37,9 +40,12 @@ Safe usage of `keys.sh` inline with a current install would be to run with optio
 * `./keys.sh` "Extend Key Duration".
 Those commands are considered standard option is `sswg.sh`. 
 ___
-## Usage Fresh Run (I just flashed my router..)
-``opkg update opkg install diffutils curl jq ntpdate``
-`mkdir -p /wg/` Edit your `sswg.json` with your up-to-date SurfShark VPN account creds:
+## Usage Fresh Run
+___
+###### I just flashed my router.  Bare-bones till online via `keys.sh -n` ~ 17 minutes :3rd_place_medal:    You Can Be Better! :1st_place_medal:
+
+* `opkg update`   `opkg install diffutils curl jq ntpdate`
+* `mkdir -p /wg/` Edit your `sswg.json` with your up-to-date SurfShark VPN account creds:
 ```
 ##############################  Example of sswg.json  ##############################################
 # {
@@ -53,7 +59,7 @@ Transfer `sswg.json` and `keys.sh` to `/wg/` dir.
 `chmod +x keys.sh` allows script to be executable. 
 
 
-```opkg update opkg install luci-app-wireguard; luci-proto-wireguard; wireguard-tools; kmod-wireguard```
+`opkg update`   `opkg install luci-app-wireguard; luci-proto-wireguard; wireguard-tools; kmod-wireguard`
 
 * Reboot your system so the above packages can manifest in Luci.
 ___
@@ -71,9 +77,17 @@ ___
 ___
 ![Image](https://github.com/reIyst/SSWG/blob/main/2022-08-05_192554.jpg)
 ___
+___
 
+## [The Main Functions Explained Here](https://github.com/reIyst/SSWG#the-main-functions-are)
+___
+### New Functions:
 
+### wg0_new()
+The function is calling all other MAIN funtions to do their job and pull in all the SurfShark goodness. Addionally; one peer, with all the setting needed to get online WireGuard/SurfShark style fast is configured therein.  A custom `if` name `config wireguard_wg0 'peertorc'` that allows for the use of [peer swapping](https://github.com/reIyst/SSWG/blob/main/Interface%20'wg0'%20Endpoint%20Swap.md#installing-wout-peer1-and-with-multi-peer-for-uci-cli-swapping) via cli. Your script can be modified in this section to suit your needs.  Learn the `uci` paramaters. This can be studied via the LuCi save view in the upper right hand corner before you hit `Save and Apply`. This is true no matter if you are adding or deleting item from your web session in LuCi.  Just look at what is being held in the pre-commit stage ~ copy/paste into an editor of choice and learn your way thru it. 
 
+### reset_keys()
+Quick/Quiet removal of the `/wg/conf/` folder, `wg.json` , `token.json` , `surfshark_servers.json` . Leaving `key.sh` , `sswg.json` , and all user placed item not mentiond here. 
 
 
 
