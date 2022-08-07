@@ -79,12 +79,18 @@ This script achievements: it combines the base files of @yanzdan api code with t
 
 ## Sources 
 This work is a culmination of scripts.
-* [yanzdan](https://github.com/yazdan/openwrt-surfshark-wireguard)
+* [yanzdan](https://github.com/yazdan/)
 * [trickapm](https://gist.github.com/trickapm)
-* [ruralroots](https://github.com/ruralroots/openwrt-surfshark-wireguard)
+* [ruralroots](https://github.com/ruralroots)
+* [kyndair](https://github.com/kyndair)
 
 
 ## Etcetera
+___
+### Misc Reading
+* [Endpoint Swap](https://github.com/reIyst/SSWG/blob/main/Interface%20'wg0'%20Endpoint%20Swap.md)
+* [New Keys Script](https://github.com/reIyst/SSWG/blob/main/ReadME-Keys.md)
+
 ### Cron Job
 Thursday Key Reinstate Sunday conf files download and Key Reinstate
 
@@ -94,3 +100,14 @@ Thursday Key Reinstate Sunday conf files download and Key Reinstate
 ```
 
 
+***
+____
+### Copyright and Attribution of developed software, tool, logo, names are the right of the following entities respectively.  
+![Image](https://openwrt.org/_media/logo.png "OpenWrt Logo") CC Attribution-Share Alike 4.0 International
+
+
+![Image](https://surfshark.com/wp-content/themes/surfshark/assets/img/logos/logo.svg)  © 2022 Copyright Surfshark. All rights reserved.
+
+![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Logo_of_WireGuard.svg/330px-Logo_of_WireGuard.svg.png)  © Copyright 2015-2022 Jason A. Donenfeld. All Rights Reserved. "WireGuard" and the "WireGuard" logo are registered trademarks of Jason A. Donenfeld.
+***
+____
