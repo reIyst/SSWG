@@ -1,4 +1,5 @@
 ## Welcome to Keys.sh 
+* ###### :warning: OpenWrt 22.03.0-rc6 : Tested on MikroTik RouterBOARD 951Ui-2nD (hAP) : YMMV :warning: 
 
 ###### New Setup: Interface "wg0" in the `WAN` zone firewall and Toronto peer activated!
 ###### Use LuCi Interface Settings to drag-n-drop new conf.
