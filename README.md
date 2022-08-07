@@ -74,7 +74,7 @@ I don't know of any consumer grade routers that have a RTC (real time clock) ~ b
 
 ##  Summation
 Verbosity is king in this script and it wouldn't have happened unless other people knew THIS FACT!
-This script achievements: it combines the base files of @yanzdan api code with the  swiftness of @trickapm aka patrickm hacks running without the `-g`, the Verbosity of @ruralroots inclusions needed to understand the who, what , when, where, why, how.  It's being actively debugged ~ forcing error condition to test for insight | and fixing them.
+This script achievements: it combines the base files of @yanzdan api code with the  swiftness of @trickapm aka patrickm hacks running without the `-g`, the Verbosity of @ruralroots inclusions needed to understand the who, what , when, where, why, how.  @kyndair for POC in UCI sets.  It's being actively debugged ~ forcing error condition to test for insight | and fixing them.
 
 
 ## Sources 
