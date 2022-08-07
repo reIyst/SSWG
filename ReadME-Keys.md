@@ -1,5 +1,6 @@
 ## Welcome to Keys.sh 
-* ###### :warning: OpenWrt 22.03.0-rc6 : Tested on MikroTik RouterBOARD 951Ui-2nD (hAP) : YMMV :warning: 
+* ###### :warning: Tested on OpenWrt 22.03.0-rc6 : MikroTik RouterBOARD 951Ui-2nD (hAP) : YMMV :warning:
+* :on: Use custom DNS servers on `if wg0` has DNSSEC and DNSSEC check unsigned :heavy_check_mark: : `dnsmasq-full - 2.86-13` package :on:
 
 ###### New Setup: Interface "wg0" in the `WAN` zone firewall and Toronto peer activated!
 ###### Use LuCi Interface Settings to drag-n-drop new conf.
