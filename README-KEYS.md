@@ -1,7 +1,7 @@
 ## Welcome to Keys.sh 
 * ###### :warning: Tested on OpenWrt 22.03.0-rc6 : MikroTik RouterBOARD 951Ui-2nD (hAP) : YMMV :warning:
 * Use custom DNS servers on `if wg0` has DNSSEC and DNSSEC check unsigned :heavy_check_mark: : `dnsmasq-full - 2.86-13` package.
-* If deciding to run with DNSSEC you'll need `dnsmasq` to be uninstalled and `dnsmasq-full` installed. [Link](https://github.com/openwrt/packages/tree/master/net/stubby/files#:~:text=Both%20options%20are%20detailed%20below%2C%20and%20both%20require%20that%20the%20dnsmasq%20package%20on%20the%20OpenWRT%20device%20is%20replaced%20with%20the%20dnsmasq%2Dfull%20package.%20That%20can%20be%20achieved%20by%20running%20the%20following%20command%3A) Right Click/Open New Tab to go to highlighted section. 
+* If deciding to run with DNSSEC you'll need `dnsmasq` to be uninstalled and `dnsmasq-full` installed. [Link](https://github.com/openwrt/packages/tree/master/net/stubby/files#:~:text=Both%20options%20are%20detailed%20below%2C%20and%20both%20require%20that%20the%20dnsmasq%20package%20on%20the%20OpenWRT%20device%20is%20replaced%20with%20the%20dnsmasq%2Dfull%20package.%20That%20can%20be%20achieved%20by%20running%20the%20following%20command%3A)  : Right Click/Open New Tab to go to highlighted section. 
 * `opkg update`
 * `opkg install dnsmasq-full --download-only && opkg remove dnsmasq && opkg install dnsmasq-full --cache . && rm *.ipk`
 
