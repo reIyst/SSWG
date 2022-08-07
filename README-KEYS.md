@@ -27,7 +27,7 @@ ___
 ## Usage Inline (existing `/wg` install)
 ___
 * If your are considering using this with a current install:  Save your `wg.json` file before running `keys.sh -d` .
-* The `keys.sh -d` will only remove from `/etc/config/network` and `/etc/config/firewall` the what the `keys.sh -n` command implanted. 
+* The `keys.sh -d` will only remove from `/etc/config/network` and `/etc/config/firewall` what the `keys.sh -n` command implanted. 
 *  However, it will wipe the /wg/ directory of `token.json` , `wg.json` , `surfshark_servers.json` , and the `/wg/conf/*` directory. 
 ###### Backup if unsure!
 ___
