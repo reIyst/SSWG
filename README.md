@@ -89,7 +89,7 @@ This work is a culmination of scripts.
 ___
 ### Misc Reading
 * [Endpoint Swap](https://github.com/reIyst/SSWG/blob/main/Interface%20'wg0'%20Endpoint%20Swap.md)
-* [New Keys Script](https://github.com/reIyst/SSWG/blob/main/ReadME-Keys.md)
+* [New Keys Script](https://github.com/reIyst/SSWG/blob/main/README-KEYS.md)
 
 ### Cron Job
 Thursday Key Reinstate Sunday conf files download and Key Reinstate
