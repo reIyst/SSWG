@@ -62,6 +62,7 @@ Transfer `sswg.json` and `keys.sh` to `/wg/` dir.
 `opkg update`   `opkg install luci-app-wireguard; luci-proto-wireguard; wireguard-tools; kmod-wireguard`
 
 * Reboot your system so the above packages can manifest in Luci.
+###### ssh into your router's ip and issue the command from the /wg dir `./keys.sh -n`
 ___
 ![Image](https://github.com/reIyst/SSWG/blob/main/2022-08-05_192401.jpg)
 ___
@@ -115,6 +116,6 @@ ____
 
 ##### Tested on MikroTik RouterBOARD 951Ui-2nD (hAP) : OpenWrt 22.03.0-rc6
 
-###### ....ohh EOF or Easter Egg?    Quick Run...Have needed web pages open for cheet sheets, make a current `backup-OpenWrt-2022-now-now.tar.gz`:stopwatch: Flash your system (only if part of plan)..:play_or_pause_button:..SSH via Putty into 192.168.1.1 `opkg update` :arrow_forward: ``opkg install dnsmasq-full --download-only && opkg remove dnsmasq && opkg install dnsmasq-full --cache . && rm *.ipk`` :twisted_rightwards_arrows: during the opkg sessions make use of time by copying item from your backup to your new install: IE `rc.local crontab/root etc/config/system...`  :arrow_forward: ` opkg install diffutils curl jq ntpdate` :twisted_rightwards_arrows:  `opkg install wireguard-tools luci-app-wireguard luci-proto-wireguard kmod-wireguard`:twisted_rightwards_arrows: WinSCP into 192.168.1.1 and create `/wg/` directory and move your `keys.sh` and `sswg.json` files, right click on script and set executable or cli `chmod +x keys.sh`. Check opkg and if done, run `keys.sh -n` till done; `wg show` and :stopwatch: !!  Navigate via WinSCP to `/etc/config/network` set the subnet you desire/save and `REBOOT` via Putty or the WinSCP Command windowlet. Release any device IP that got a dhcp addy from OpenWrt's install and kill your Putty/WinSCP session that were on the 192.168.1.0/24 subnet. 
+###### ....ohh EOF or Easter Egg?    Quick Run...Have needed web pages open for cheet sheets, make a current `backup-OpenWrt-2022-now-now.tar.gz`:stopwatch: Flash your system (only if part of plan)..:play_or_pause_button:..SSH via Putty into 192.168.1.1 `opkg update` :arrow_forward: ``opkg install dnsmasq-full --download-only && opkg remove dnsmasq && opkg install dnsmasq-full --cache . && rm *.ipk`` :twisted_rightwards_arrows: during the opkg sessions make use of time by copying item from your backup to your new install: IE `rc.local crontab/root etc/config/system...`  :arrow_forward: ` opkg install diffutils curl jq ntpdate` :twisted_rightwards_arrows:  `opkg install wireguard-tools luci-app-wireguard luci-proto-wireguard kmod-wireguard`:twisted_rightwards_arrows: WinSCP into 192.168.1.1 and create `/wg/` directory and move your `keys.sh` and `sswg.json` files, right click on script and set executable or cli `chmod +x keys.sh`. Check opkg and if done, run `./keys.sh -n` till done;issue command `wg show` and :stopwatch: !!  Navigate via WinSCP to `/etc/config/network` set the subnet you desire/save and `REBOOT` via Putty or the WinSCP Command windowlet. Release any device IP that got a dhcp addy from OpenWrt's install and kill your Putty/WinSCP session that were on the 192.168.1.0/24 subnet. 
 ###### You will be better!
 
