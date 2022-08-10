@@ -19,7 +19,7 @@ read_config() {
 
 do_login () {
     rc=1
-    if [ "$1" == "-d" ] || [ -f "$token_file" ]; then
+    if [ "$1" = "-d" ] || [ -f "$token_file" ]; then
         echo "Token file \"$token_file\" exists, skipping login"  ## With the new "000" Failure in reg_pubkey and do_login...
         rc=0                                                      ## we'er calling out the "000" failure in curl/http...
     else                                                          ## continuing with generation of new/updated "Token.json"!  
@@ -50,7 +50,7 @@ do_login () {
         # rm -fr "$tmpfile"  
         fi    
     fi
-    
+    rm -fr "$tmpfile" 
     if [ "$rc" -eq 0 ]; then
         token="$(jq -r '.token' "$token_file")"
         renewToken="$(jq -r '.renewToken' "$token_file")"
@@ -68,7 +68,7 @@ get_servers() {
         echo "  HTTP status OK ($(jq '. | length' "$tmpfile") servers downloaded)"
         echo -n "  Selecting available servers..."
         tmpfile2=$(mktemp /tmp/surfshark-wg-servers.XXXXXX)
-        jq '.[] | select(.tags[] as $t | ["p2p", "virtual", "physical"] | index($t))' "$tmpfile" | jq -s '.' > "$tmpfile2"
+        jq 'select(any(.[].tags[]; . == "virtual" or . == "p2p" or . == "physical"))' "$tmpfile" | jq -s > "$tmpfile2"   
         echo " ($(jq '. | length' "$tmpfile") servers selected)"
         if [ -f "$servers_file" ]; then
             echo "  Servers list \"$servers_file\" already exists"
@@ -134,11 +134,12 @@ reg_pubkey() {
             data="{\"username\":\"$username\", \"password\":\"$password\"}"
             http_status=$(curl -o "$tmpfile" -s -w "%{http_code}" -d "$data" -H 'Content-Type: application/json' -X POST $url)
             if [ "$http_status" -eq 200 ]; then
-                cp "$tmpfile" "$token_file"
+                mv "$tmpfile" "$token_file"
                     echo "  HTTP status OK"
 		    reg_pubkey 0
             rc=0
-            fi 		
+            fi
+		
         if [ "$message" = "Expired JWT Token" ]; then            
 	    echo "  Deleting $token_file to try again!"
             rm "$token_file"
@@ -261,7 +262,7 @@ reset_keys() {
 gen_client_confs() {
     postf=".surfshark.com"
     mkdir -p "$output_conf_folder"
-    server_hosts="$(cat "$servers_file" | jq -c '.[] | [.connectionName, .pubKey]')"
+    server_hosts="$(cat "$servers_file" | jq -c '.[] | .[] | [.connectionName, .pubKey]')"
     for row in $server_hosts; do
         srv_host="$(echo "$row" | jq '.[0]')"
         srv_host=$(eval echo "$srv_host")
