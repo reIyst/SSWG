@@ -88,7 +88,7 @@ ___
 The function is calling all other MAIN funtions to do their job and pull in all the SurfShark goodness.  Addionally; one peer, with all the setting needed to get online WireGuard/SurfShark style fast is configured therein.  A custom `if` name `config wireguard_wg0 'peertorc'` that allows for the use of [peer swapping](https://github.com/reIyst/SSWG/blob/main/Interface%20'wg0'%20Endpoint%20Swap.md#installing-wout-peer1-and-with-multi-peer-for-uci-cli-swapping) via cli.  Your script can be modified in this section to suit your needs.  Learn the `uci` paramaters. This can be studied via the LuCi save view in the upper right hand corner before you hit `Save and Apply`.  This is true no matter if you are adding or deleting item from your web session in LuCi.  Just look at what is being held in the pre-commit stage ~ copy/paste into an editor of choice and learn your way thru it. 
 
 ### reset_keys()
-Quick/Quiet removal of the `/wg/conf/` folder, `wg.json` , `token.json` , `surfshark_servers.json` . Leaving `key.sh` , `sswg.json` , and all user placed item not mentiond here. 
+Quick/Quiet removal of the `/wg/conf/` folder, `wg.json` , `token.json` , `surfshark_servers.json` . Leaving `keys.sh` , `sswg.json` , and all user placed item not mentiond here. 
 
 
 
