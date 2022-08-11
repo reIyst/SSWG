@@ -149,6 +149,7 @@ reg_pubkey() {
             else
                 echo "  Giving up..."   ### Have not seen lines 190~ 199 yet
             fi
+	    rm -fr "$tmpfile"
         elif [ "$message" = "JWT Token not found" ]; then
             echo "  Deleting $token_file to try again!"
             rm "$token_file"
