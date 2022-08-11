@@ -28,7 +28,7 @@ ___
 ## Functions explained:
 ##  read_config()
 Looks for the parameters set forth in two files: sswg.sh and sswg.json
-On line 68 of the sswg.sh >config_file="/wg.sswg.json" asks for user credential and a pre set path to populate
+On line 68 of `sswg.sh` or line 3 of `sswg2.sh and keys.sh` of the script >config_file="/wg.sswg.json" asks for user credential and a pre set path to populate
 further into the processing. Being that line 68 is in itself a pre set path may add
 confusion, yet if one were to set line 68 to a different location
 EX. /etc or /etc/config the sswg.json file must be edited to follow.
