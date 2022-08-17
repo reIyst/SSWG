@@ -1,4 +1,4 @@
-## 8/10/2022 [Find the Release Here](https://github.com/reIyst/SSWG/releases/tag/v1.0.0)) Revamped All-in-One `Keys.sh` new functions.  [Find the README-KEYS Here](https://github.com/reIyst/SSWG/blob/main/README-KEYS.md) 
+## 8/10/2022 [Find the Release Here](https://github.com/reIyst/SSWG/releases/tag/v1.0.0) Revamped All-in-One `Keys.sh` new functions.  [Find the README-KEYS Here](https://github.com/reIyst/SSWG/blob/main/README-KEYS.md) 
 
 ___
 ### [OpenWrt ](https://forum.openwrt.org/t/create-surfshark-wireguard-connection-on-openwrt-easily/111866/150) SurfShark WireGurard ~ [SSWG](https://forum.openwrt.org/t/create-surfshark-wireguard-connection-on-openwrt-easily/111866/127)
