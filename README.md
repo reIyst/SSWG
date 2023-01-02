@@ -1,5 +1,5 @@
-## Tested
-___
+## Re-Tested
+
 ```
 Model	MikroTik RouterBOARD 951Ui-2nD (hAP)
 Architecture	Qualcomm Atheros QCA9533 ver 2 rev 0
