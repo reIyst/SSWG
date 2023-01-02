@@ -1,3 +1,14 @@
+## Tested
+___
+```
+Model	MikroTik RouterBOARD 951Ui-2nD (hAP)
+Architecture	Qualcomm Atheros QCA9533 ver 2 rev 0
+Target Platform	ath79/mikrotik
+Firmware Version	OpenWrt 22.03.2 r19803-9a599fee93 / LuCI openwrt-22.03 branch git-22.288.45147-96ec0cd
+Kernel Version	5.10.146
+```
+____
+
 ## 8/10/2022 [Find the Release Here](https://github.com/reIyst/SSWG/releases/tag/v1.0.0) Revamped All-in-One `Keys.sh` new functions.  [Find the README-KEYS Here](https://github.com/reIyst/SSWG/blob/main/README-KEYS.md) 
 
 ___
