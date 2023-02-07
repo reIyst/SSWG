@@ -19,38 +19,39 @@ read_config() {
 
 do_login () {
     rc=1
-    if [ "$1" = "-d" ] || [ -f "$token_file" ]; then
+    if [ "$1" == "-d" ] || [ -f "$token_file" ]; then
         echo "Token file \"$token_file\" exists, skipping login"  ## With the new "000" Failure in reg_pubkey and do_login...
         rc=0                                                      ## we'er calling out the "000" failure in curl/http...
     else                                                          ## continuing with generation of new/updated "Token.json"!  
         echo "Logging in..."                                      ## Line 129 seems to prevent Line 37 'Curl 000' echo.
-        tmpfile=$(mktemp /tmp/wg-curl-res.XXXXXX)
+        tmpfile3=$(mktemp /tmp/wg-curl-res.XXXXXX)
         url="$baseurl/v1/auth/login"
         data="{\"username\":\"$username\", \"password\":\"$password\"}"
-        http_status=$(curl -o "$tmpfile" -s -w "%{http_code}" -d "$data" -H 'Content-Type: application/json' -X POST $url)
+        http_status=$(curl -o "$tmpfile3" -s -w "%{http_code}" -d "$data" -H 'Content-Type: application/json' -X POST $url)
         if [ "$http_status" -eq 200 ]; then
-            cp "$tmpfile" "$token_file"
+            cp "$tmpfile3" "$token_file"
+		rm -fr "$tmpfile3"  
                 echo "  HTTP status OK"
             rc=0
         elif [ "$http_status" -eq 429 ]; then
             echo "  HTTP status $http_status (Blocked! Too many requests, Change VPN Server and Retry)"
         elif [ "$http_status" -eq 000 ]; then                     ## Start do_login at shell script again, "000" is various failure code.
             echo "  Overcoming Curl 000 failure... "
-            tmpfile=$(mktemp /tmp/wg-curl-res.XXXXXX)
+            tmpfile3=$(mktemp /tmp/wg-curl-res.XXXXXX)
             url="$baseurl/v1/auth/login"
             data="{\"username\":\"$username\", \"password\":\"$password\"}"
-            http_status=$(curl -o "$tmpfile" -s -w "%{http_code}" -d "$data" -H 'Content-Type: application/json' -X POST $url)
+            http_status=$(curl -o "$tmpfile3" -s -w "%{http_code}" -d "$data" -H 'Content-Type: application/json' -X POST $url)
             if [ "$http_status" -eq 200 ]; then
-                cp "$tmpfile" "$token_file"
+                cp "$tmpfile3" "$token_file"
+		         rm -fr "$tmpfile3"  
                     echo "  HTTP status OK"
             rc=0
             fi                                    
         else
             echo "  HTTP status $http_status (Failed! Check username/password in .json file)"
-        # rm -fr "$tmpfile"  
         fi    
     fi
-    rm -fr "$tmpfile" 
+    
     if [ "$rc" -eq 0 ]; then
         token="$(jq -r '.token' "$token_file")"
         renewToken="$(jq -r '.renewToken' "$token_file")"
@@ -60,38 +61,37 @@ do_login () {
 
 get_servers() {
     echo "Retrieving servers list..."
-    tmpfile=$(mktemp /tmp/surfshark-wg-servers.XXXXXXXX)
+    tmpfile=$(mktemp /tmp/surfshark-wg-servers.XXXXXX)
     url="$baseurl/v4/server/clusters/generic?countryCode="
-    http_status=$(curl -o "$tmpfile" -s -w "%{http_code}" -H "Authorization: Bearer $token" -H 'Content-Type: application/json' "$url")
+    http_status=$(curl -o $tmpfile -s -w "%{http_code}" -H 'Authorization: Bearer $token' -H 'Content-Type: application/json' $url)
     rc=1
-    if [ "$http_status" -eq 200 ]; then
-        echo "  HTTP status OK ($(jq '. | length' "$tmpfile") servers downloaded)"
-        echo -n "  Selecting available servers..."
+    if [ $http_status -eq 200 ]; then
+        echo "  HTTP status OK ($(jq '. | length' "$tmpfile") Generic servers downloaded)"
+        echo -n "  Processing..."
         tmpfile2=$(mktemp /tmp/surfshark-wg-servers.XXXXXX)
-        jq 'select(any(.[].tags[]; . == "virtual" or . == "p2p" or . == "physical"))' "$tmpfile" | jq -s > "$tmpfile2"   
-        echo " ($(jq '. | length' "$tmpfile") servers selected)"
+        jq '.[] | select(.type as $t | ["generic"] | index($t))' "$tmpfile" | jq -s '.' > "$tmpfile2"
+        echo " ($(jq '. | length' "$tmpfile2"))"
         if [ -f "$servers_file" ]; then
             echo "  Servers list \"$servers_file\" already exists"
-            changes=$(diff "$servers_file" "$tmpfile2")
+            changes=$(diff "$servers_file" $tmpfile2)
             if [ -z "$changes" ]; then
                 echo "  No changes"
-                rm -fr "$tmpfile2"
+                rm $tmpfile2
             else
                 echo "  Servers changed! Updating servers file" 
-                mv "$tmpfile2" "$servers_file"
+                mv $tmpfile2 "$servers_file"
                 rc=0
             fi
         else
-            mv "$tmpfile2" "$servers_file"
+            mv $tmpfile2 "$servers_file"
             rc=0
         fi
     else
             echo "  HTTP status $http_status (Failed)"
     fi
-    rm -fr "$tmpfile"
+    rm $tmpfile
     return $rc
 }
-
 gen_keys() {
     if [ "$1" = "-d" ] || [ -f "$wg_keys" ]; then
         echo "WireGuard keys \"$wg_keys\" already exist"
@@ -134,41 +134,11 @@ reg_pubkey() {
             data="{\"username\":\"$username\", \"password\":\"$password\"}"
             http_status=$(curl -o "$tmpfile" -s -w "%{http_code}" -d "$data" -H 'Content-Type: application/json' -X POST $url)
             if [ "$http_status" -eq 200 ]; then
-                mv "$tmpfile" "$token_file"
+                cp "$tmpfile" "$token_file"
+		         rm -fr "$tmpfile"  
                     echo "  HTTP status OK"
 		    reg_pubkey 0
             rc=0
-            fi
-		
-        if [ "$message" = "Expired JWT Token" ]; then            
-	    echo "  Deleting $token_file to try again!"
-            rm "$token_file"
-            if do_login; then
-                reg_pubkey 0
-                return
-            else
-                echo "  Giving up..."   ### Have not seen lines 190~ 199 yet
-            fi
-	    rm -fr "$tmpfile"
-        elif [ "$message" = "JWT Token not found" ]; then
-            echo "  Deleting $token_file to try again!"
-            rm "$token_file"
-            if do_login; then
-                reg_pubkey 0
-                return
-            else
-                echo "  Giving up..."   ### Have not seen lines 190~ 199 yet
-            fi
-        elif [ "$message" = "JWT Token not found" ]; then
-            if [ "$retry" -eq 1 ]; then
-                 echo "  Have some coffee and try again!"  
-                 sleep 5
-                 reg_pubkey 0
-                 return
-            else
-                echo "  Giving up..."
-            fi
-        
          fi
     elif [ "$http_status" -eq 409 ]; then
         echo "  Already registered"
@@ -181,7 +151,7 @@ reg_pubkey() {
             diff=$((ed - now))
             if [ $diff -eq 604800 ] || [ $((604800 - diff)) -lt 10 ]; then
                 echo "  Renewed! (expires: $expire_date)"
-            	echo "  Hello World Wide WireGuard©"                                          # Your Custom Shout Out 
+            	echo "  Hello World Wide WireGuardÂ©"                                          # Your Custom Shout Out 
            	echo "  Thanks Jason A. Donenfeld"                                             # wg was written by One Json we can find
             	logger -t BOSSUSER "RUN DATE:$(date)   KEYS EXPIRE ON: ${expire_date}"         # Log Status Information
 
@@ -198,6 +168,7 @@ reg_pubkey() {
     fi
     rm -fr "$tmpfile"
 }
+
 
 wg0_new() {
         gen_keys
@@ -230,7 +201,8 @@ wg0_new() {
         uci set network.peertorc.persistent_keepalive='25'
         uci del firewall.cfg03dc81.network
         uci add_list firewall.cfg03dc81.network='wan'
-        uci add_list firewall.cfg03dc81.network='wg0'
+	uci add_list firewall.cfg03dc81.network='wg0'
+	uci add_list firewall.cfg03dc81.network='wan6'
         uci commit network;uci commit firewall;/etc/init.d/network restart
 	echo ""
         echo " : Visit : https://dnscheck.tools/ "
@@ -250,10 +222,10 @@ reset_keys() {
         rm -fr ${config_folder}/wg.json
 	rm -fr ${config_folder}/conf
         # /etc/config/firewall
-        uci del firewall.cfg02dc81.network
         uci add_list firewall.cfg02dc81.network='lan'
-        uci del firewall.cfg03dc81.network
-        uci add_list firewall.cfg03dc81.network='wan'
+	uci del firewall.cfg03dc81.network
+	uci add_list firewall.cfg03dc81.network='wan'
+	uci add_list firewall.cfg03dc81.network='wan6'
         # /etc/config/network
         uci del network.peertorc
         uci del network.wg0
@@ -263,7 +235,7 @@ reset_keys() {
 gen_client_confs() {
     postf=".surfshark.com"
     mkdir -p "$output_conf_folder"
-    server_hosts="$(cat "$servers_file" | jq -c '.[] | .[] | [.connectionName, .pubKey]')"
+    server_hosts="$(cat "$servers_file" | jq -c '.[] | [.connectionName, .pubKey]')"
     for row in $server_hosts; do
         srv_host="$(echo "$row" | jq '.[0]')"
         srv_host=$(eval echo "$srv_host")
