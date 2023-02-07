@@ -9,10 +9,10 @@ Kernel Version	5.10.146
 ```
 ____
 
-## 8/10/2022 [Find the Release Here](https://github.com/reIyst/SSWG/releases/tag/v1.0.0) Revamped All-in-One `Keys.sh` new functions.  [Find the README-KEYS Here](https://github.com/reIyst/SSWG/blob/main/README-KEYS.md) 
+## 8/10/2022 [Find the Release Here](https://github.com/reIyst/SSWG/releases/tag/v1.0.0) Revamped All-in-One `Keys.sh` new functions.  [Find the README Here](https://github.com/reIyst/SSWG/blob/main/README.md) 
 
 ___
-### [OpenWrt ](https://forum.openwrt.org/t/create-surfshark-wireguard-connection-on-openwrt-easily/111866/150) SurfShark WireGurard ~ [SSWG](https://forum.openwrt.org/t/create-surfshark-wireguard-connection-on-openwrt-easily/111866/127)
+
 
 ## A shell script and companion file to curl the 'api.surfshark.com'.
 #### Prerequisite: One must have an up-to-date SurfShark VPN account and Luci/uci access to router. Beyond the scope of this README is also having WireGuard installed.  A good place to start is on the [OpenWrt Wiki](https://openwrt.org/docs/guide-user/services/vpn/wireguard/client#preparation) for a baseline install, then unto the [Web Interface](https://openwrt.org/docs/guide-user/services/vpn/wireguard/extras#web_interface). 
