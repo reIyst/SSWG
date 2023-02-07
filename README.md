@@ -80,7 +80,7 @@ ___
 ___
 ___
 
-## [The Main Functions Explained Here](https://github.com/reIyst/SSWG#the-main-functions-are)
+## [The Main Functions Explained Here](https://github.com/reIyst/SSWG/blob/main/README_SSWG.md#functions-explained)
 ___
 ### New Functions:
 
