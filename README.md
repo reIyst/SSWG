@@ -1,5 +1,5 @@
 ## Welcome to Keys.sh 
-* ###### :warning: Tested on OpenWrt 22.03.0-rc6 : MikroTik RouterBOARD 951Ui-2nD (hAP) : YMMV :warning:
+* ###### :warning: Tested on OpenWrt 22.03.3 : Netgear WAX202, MikroTik RouterBOARD 951Ui-2nD (hAP) : YMMV :warning:
 * Use custom DNS servers on `if wg0` has DNSSEC and DNSSEC check unsigned :heavy_check_mark: : `dnsmasq-full - 2.86-13` package.
 * If deciding to run with DNSSEC you'll need `dnsmasq` to be uninstalled and `dnsmasq-full` installed. [Link](https://github.com/openwrt/packages/tree/master/net/stubby/files#:~:text=Both%20options%20are%20detailed%20below%2C%20and%20both%20require%20that%20the%20dnsmasq%20package%20on%20the%20OpenWRT%20device%20is%20replaced%20with%20the%20dnsmasq%2Dfull%20package.%20That%20can%20be%20achieved%20by%20running%20the%20following%20command%3A)  : Right Click/Open New Tab to go to highlighted section. 
 * `opkg update`
@@ -59,7 +59,7 @@ Transfer `sswg.json` and `keys.sh` to `/wg/` dir.
 `chmod +x keys.sh` allows script to be executable. 
 
 
-`opkg update`   `opkg install luci-app-wireguard; luci-proto-wireguard; wireguard-tools; kmod-wireguard`
+`opkg update`   `opkg install luci-app-wireguard`
 
 * Reboot your system so the above packages can manifest in Luci.
 ###### ssh into your router's ip and issue the command from the /wg dir `./keys.sh -n`
@@ -99,9 +99,9 @@ ____
 ![Image](https://openwrt.org/_media/logo.png "OpenWrt Logo") CC Attribution-Share Alike 4.0 International
 
 
-![Image](https://surfshark.com/wp-content/themes/surfshark/assets/img/logos/logo.svg)  © 2022 Copyright Surfshark. All rights reserved.
+![Image](https://surfshark.com/wp-content/themes/surfshark/assets/img/logos/logo.svg)  © 2023 Copyright Surfshark. All rights reserved.
 
-![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Logo_of_WireGuard.svg/330px-Logo_of_WireGuard.svg.png)  © Copyright 2015-2022 Jason A. Donenfeld. All Rights Reserved. "WireGuard" and the "WireGuard" logo are registered trademarks of Jason A. Donenfeld.
+![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Logo_of_WireGuard.svg/330px-Logo_of_WireGuard.svg.png)  © Copyright 2015-2022~3 Jason A. Donenfeld. All Rights Reserved. "WireGuard" and the "WireGuard" logo are registered trademarks of Jason A. Donenfeld.
 ***
 ____
 
@@ -114,8 +114,8 @@ ____
 
 
 
-##### Tested on MikroTik RouterBOARD 951Ui-2nD (hAP) : OpenWrt 22.03.0-rc6
+##### Tested on Netgear WAX202, MikroTik RouterBOARD 951Ui-2nD (hAP) : OpenWrt 22.03.3
 
-###### ....ohh EOF or Easter Egg?    Quick Run...Have needed web pages open for cheet sheets, make a current `backup-OpenWrt-2022-now-now.tar.gz`:stopwatch: Flash your system (only if part of plan)..:play_or_pause_button:..SSH via Putty into 192.168.1.1 `opkg update` :arrow_forward: ``opkg install dnsmasq-full --download-only && opkg remove dnsmasq && opkg install dnsmasq-full --cache . && rm *.ipk`` :twisted_rightwards_arrows: during the opkg sessions make use of time by copying item from your backup to your new install: IE `rc.local crontab/root etc/config/system...`  :arrow_forward: ` opkg install diffutils curl jq ntpdate` :twisted_rightwards_arrows:  `opkg install wireguard-tools luci-app-wireguard luci-proto-wireguard kmod-wireguard`:twisted_rightwards_arrows: WinSCP into 192.168.1.1 and create `/wg/` directory and move your `keys.sh` and `sswg.json` files, right click on script and set executable or cli `chmod +x keys.sh`. Check opkg and if done, run `./keys.sh -n` till done;issue command `wg show` and :stopwatch: !!  Navigate via WinSCP to `/etc/config/network` set the subnet you desire/save and `REBOOT` via Putty or the WinSCP Command windowlet. Release any device IP that got a dhcp addy from OpenWrt's install and kill your Putty/WinSCP session that were on the 192.168.1.0/24 subnet. 
+###### ....ohh EOF or Easter Egg?    Quick Run...Have needed web pages open for cheet sheets, make a current `backup-OpenWrt-2022-now-now.tar.gz`:stopwatch: Flash your system (only if part of plan)..:play_or_pause_button:..SSH via Putty into 192.168.1.1 `opkg update` :arrow_forward: ``opkg install dnsmasq-full --download-only && opkg remove dnsmasq && opkg install dnsmasq-full --cache . && rm *.ipk`` :twisted_rightwards_arrows: during the opkg sessions make use of time by copying item from your backup to your new install: IE `rc.local crontab/root etc/config/system...`  :arrow_forward: ` opkg install diffutils curl jq ntpdate` :twisted_rightwards_arrows:  `opkg install wireguard-tools luci-app-wireguard`:twisted_rightwards_arrows: WinSCP into 192.168.1.1 and create `/wg/` directory and move your `keys.sh` and `sswg.json` files, right click on script and set executable or cli `chmod +x keys.sh`. Check opkg and if done, run `./keys.sh -n` till done;issue command `wg show` and :stopwatch: !!  Navigate via WinSCP to `/etc/config/network` set the subnet you desire/save and `REBOOT` via Putty or the WinSCP Command windowlet. Release any device IP that got a dhcp addy from OpenWrt's install and kill your Putty/WinSCP session that were on the 192.168.1.0/24 subnet. 
 ###### You will be better!
 
