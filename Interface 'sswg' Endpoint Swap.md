@@ -150,8 +150,8 @@ ____
 ![Image](https://openwrt.org/_media/logo.png "OpenWrt Logo") CC Attribution-Share Alike 4.0 International
 
 
-![Image](https://surfshark.com/wp-content/themes/surfshark/assets/img/logos/logo.svg)  © 2022 Copyright Surfshark. All rights reserved.
+![Image](https://surfshark.com/wp-content/themes/surfshark/assets/img/logos/logo.svg)  © 2023 Copyright Surfshark. All rights reserved.
 
-![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Logo_of_WireGuard.svg/330px-Logo_of_WireGuard.svg.png)  © Copyright 2015-2022 Jason A. Donenfeld. All Rights Reserved. "WireGuard" and the "WireGuard" logo are registered trademarks of Jason A. Donenfeld.
+![Image](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Logo_of_WireGuard.svg/330px-Logo_of_WireGuard.svg.png)  © Copyright 2015-2023 Jason A. Donenfeld. All Rights Reserved. "WireGuard" and the "WireGuard" logo are registered trademarks of Jason A. Donenfeld.
 ***
 ____
